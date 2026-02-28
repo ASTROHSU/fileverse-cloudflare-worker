@@ -13,8 +13,6 @@ export async function ensureInitialized(env: Env): Promise<void> {
   if (env.RPC_URL) {
     process.env.RPC_URL = env.RPC_URL;
   }
-  process.env.NODE_ENV = env.NODE_ENV || "production";
-
   setAdapter(new D1Adapter(env.DB));
 
   if (initialized) return;

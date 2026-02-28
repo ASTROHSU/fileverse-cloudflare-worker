@@ -1,4 +1,5 @@
 import { Hono } from "hono";
+import { cors } from "hono/cors";
 import { authMiddleware } from "../middleware/auth";
 import { errorHandler } from "../middleware/error";
 import { ddocs } from "./ddocs";
@@ -13,6 +14,7 @@ import llmContent from "../static/llm.txt";
 const app = new Hono<{ Bindings: Env }>();
 
 app.use("*", errorHandler);
+app.use("/api/*", cors());
 
 app.get("/", (c) => c.text(guideContent));
 app.post("/", async (c) => {
