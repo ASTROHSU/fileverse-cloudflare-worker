@@ -17,10 +17,29 @@ const patches = [
     path: join(nm, "uc.micro", "index.mjs"),
     content: "export default {}; export const P = {}; export const S = {}; export const Z = {}; export const Any = {};\n",
   },
-  // linkify-it: re.mjs is empty in some installs; provide a default export
+  // linkify-it: re.mjs must return object with template/regex source strings (used in .replace + RegExp)
   {
     path: join(nm, "linkify-it", "lib", "re.mjs"),
-    content: "export default function () { return {}; }\n",
+    content: `export default function () {
+  const s = '';
+  return {
+    src_xn: s,
+    tpl_email_fuzzy: '%TLDS%',
+    tpl_link_fuzzy: '%TLDS%',
+    tpl_link_no_ip_fuzzy: '%TLDS%',
+    tpl_host_fuzzy_test: '%TLDS%',
+    src_auth: s,
+    src_host_port_strict: s,
+    src_path: s,
+    src_domain: s,
+    src_domain_root: s,
+    src_port: s,
+    src_host_terminator: s,
+    src_email_name: s,
+    src_host_strict: s
+  };
+}
+`,
   },
 ];
 
